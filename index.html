@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⚡ Grade 11 Advanced Math - Lesson 5: Linear Regression (T1-2.5-exam)</title>
+    <title>🧮 Modeling with Nonlinear Regression Exam</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght=400;600;700;900&family=Inter:wght=400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Cairo', sans-serif; }
         body.en-mode { font-family: 'Inter', sans-serif; }
@@ -25,7 +25,7 @@
             position: fixed; top: 16px; left: 16px; z-index: 100;
             background: white; padding: 6px; border-radius: 30px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.15); display: flex; gap: 4px;
-            border: 2px solid #0d9488;
+            border: 2px solid #4f46e5;
         }
         [dir="ltr"] .lang-switch { left: auto; right: 16px; }
         .lang-btn {
@@ -33,8 +33,8 @@
             transition: all 0.3s; border: none; font-size: 0.875rem;
             background: transparent; color: #6b7280;
         }
-        .lang-btn.active { background: #0d9488; color: white; box-shadow: 0 2px 6px rgba(13,148,136,0.4); }
-        .lang-btn:hover:not(.active) { background: #f0fdfa; color: #0d9488; }
+        .lang-btn.active { background: #4f46e5; color: white; box-shadow: 0 2px 6px rgba(79,70,229,0.4); }
+        .lang-btn:hover:not(.active) { background: #eef2ff; color: #4f46e5; }
         .shuffle-badge {
             display: inline-block;
             background: linear-gradient(135deg, #f59e0b, #ef4444);
@@ -47,7 +47,7 @@
             animation: pulse 2s infinite;
         }
     </style>
-<script src="/_aistudio-iframe.js"></script></head>
+</head>
 <body class="bg-gray-50 text-gray-800 p-4 md:p-8 min-h-screen">
 
     <div class="lang-switch no-print">
@@ -56,24 +56,24 @@
     </div>
 
     <div id="timer-container" class="max-w-4xl mx-auto mb-4 text-center no-print">
-        <div class="bg-white p-4 rounded-xl shadow-md inline-block border-2 border-teal-100">
+        <div class="bg-white p-4 rounded-xl shadow-md inline-block border-2 border-indigo-100">
             <span class="text-gray-600 ml-2" data-ar="⏱️ الوقت المتبقي:" data-en="⏱️ Time Remaining:">⏱️ الوقت المتبقي:</span>
-            <span id="timer" class="text-2xl font-bold text-teal-600 font-mono">60:00</span>
+            <span id="timer" class="text-2xl font-bold text-indigo-600 font-mono">60:00</span>
             <span class="shuffle-badge" data-ar="🔀 أسئلة عشوائية" data-en="🔀 Random Questions">🔀 أسئلة عشوائية</span>
         </div>
     </div>
 
     <div class="max-w-4xl mx-auto mb-6 flex flex-wrap gap-3 justify-center no-print">
-        <button onclick="toggleAnswers()" class="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2 rounded-lg font-medium transition shadow cursor-pointer" data-ar="👁️ إظهار / إخفاء الإجابات" data-en="👁️ Show / Hide Answers">👁️ إظهار / إخفاء الإجابات</button>
+        <button onclick="toggleAnswers()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2 rounded-lg font-medium transition shadow cursor-pointer" data-ar="👁️ إظهار / إخفاء الإجابات" data-en="👁️ Show / Hide Answers">👁️ إظهار / إخفاء الإجابات</button>
         <button onclick="window.print()" class="bg-gray-800 hover:bg-gray-900 text-white px-5 py-2 rounded-lg font-medium transition shadow cursor-pointer" data-ar="🖨️ طباعة / PDF" data-en="🖨️ Print / PDF">🖨️ طباعة / PDF</button>
-        <button onclick="reshuffleExam()" class="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-5 py-2 rounded-lg font-medium transition shadow cursor-pointer" data-ar="🔀 إعادة خلط الأسئلة" data-en="🔀 Reshuffle Questions">🔀 إعادة خلط الأسئلة</button>
+        <button onclick="reshuffleExam()" class="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white px-5 py-2 rounded-lg font-medium transition shadow cursor-pointer" data-ar="🔀 إعادة خلط الأسئلة" data-en="🔀 Reshuffle Questions">🔀 إعادة خلط الأسئلة</button>
     </div>
 
-    <header class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-md mb-8 border-r-4 border-teal-600">
+    <header class="max-w-4xl mx-auto bg-white p-6 rounded-xl shadow-md mb-8 border-r-4 border-indigo-600">
         <div class="text-center">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2" data-ar="⚡ رياضيات الصف الحادي عشر متقدم" data-en="⚡ Grade 11 Advanced Mathematics">⚡ رياضيات الصف الحادي عشر متقدم</h1>
-            <h2 class="text-lg text-teal-600 font-semibold" data-ar="الدرس الخامس: الانحدار الخطي (الفصل الدراسي الأول)" data-en="Lesson 5: Linear Regression (Term 1)">الدرس الخامس: الانحدار الخطي (الفصل الدراسي الأول)</h2>
-            <p class="text-sm text-gray-600 mt-2" data-ar="تحليل بيانات الانحدار الخطي، حساب معامل الارتباط r ومعامل التحديد r² والقيم المؤثرة والتنبؤ." data-en="Analyzing linear regression data, calculating correlation coefficient r, coefficient of determination r², influential outliers, and forecasting.">تحليل بيانات الانحدار الخطي، حساب معامل الارتباط r ومعامل التحديد r² والقيم المؤثرة والتنبؤ.</p>
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2" data-ar="🧮 امتحان النمذجة باستخدام الانحدار اللاخطي" data-en="🧮 Modeling with Nonlinear Regression Exam">🧮 امتحان النمذجة باستخدام الانحدار اللاخطي</h1>
+            <h2 class="text-lg text-indigo-600 font-semibold" data-ar="Modeling with Nonlinear Regression" data-en="Modeling with Nonlinear Regression">Modeling with Nonlinear Regression</h2>
+            <p class="text-sm text-gray-600 mt-2" data-ar="أسئلة تغطي: الانحدار الأسّي، الانحدار اللوغاريتمي، الانحدار اللوجستي ودالة النمو اللوجستي، اختيار الانحدار المناسب، وتقريب البيانات خطيًا" data-en="Covers: Exponential Regression, Logarithmic Regression, Logistic Regression & the Logistic Growth Function, Choosing a Regression, and Linearizing Data">أسئلة تغطي: الانحدار الأسّي، الانحدار اللوغاريتمي، الانحدار اللوجستي ودالة النمو اللوجستي، اختيار الانحدار المناسب، وتقريب البيانات خطيًا</p>
             <p class="text-xs text-orange-600 mt-2 font-semibold" data-ar="⚠️ ملاحظة: يتم خلط ترتيب الأسئلة والخيارات تلقائياً مع كل تحديث للصفحة" data-en="⚠️ Note: Questions and options are randomly shuffled on every page refresh">⚠️ ملاحظة: يتم خلط ترتيب الأسئلة والخيارات تلقائياً مع كل تحديث للصفحة</p>
         </div>
         <div class="mt-4 flex flex-wrap justify-center gap-4 text-sm text-gray-600">
@@ -94,7 +94,7 @@
     <div id="results-panel" class="max-w-4xl mx-auto mt-8 bg-white p-8 rounded-2xl shadow-2xl border-t-4 border-emerald-500 hidden no-print">
         <h2 class="text-3xl font-bold text-gray-900 mb-6 text-center" data-ar="📊 نتائج الامتحان" data-en="📊 Exam Results">📊 نتائج الامتحان</h2>
         <div class="grid md:grid-cols-3 gap-4 mb-6">
-            <div class="bg-blue-50 p-4 rounded-xl text-center"><p data-ar="اسم الطالب" data-en="Student Name">اسم الطالب</p><p id="res-name" class="font-bold text-xl text-teal-700">-</p></div>
+            <div class="bg-blue-50 p-4 rounded-xl text-center"><p data-ar="اسم الطالب" data-en="Student Name">اسم الطالب</p><p id="res-name" class="font-bold text-xl text-indigo-700">-</p></div>
             <div class="bg-purple-50 p-4 rounded-xl text-center"><p data-ar="التاريخ" data-en="Date">التاريخ</p><p id="res-date" class="font-bold text-xl text-purple-700">-</p></div>
             <div class="bg-emerald-50 p-4 rounded-xl text-center"><p data-ar="المجموع" data-en="Score">المجموع</p><p id="res-total" class="font-bold text-3xl text-emerald-600">0 / 100</p></div>
         </div>
@@ -107,29 +107,29 @@
             <h3 class="font-bold text-lg mb-4 text-gray-800" data-ar="📈 تفصيل الأداء حسب القسم:" data-en="📈 Performance Breakdown:">📈 تفصيل الأداء حسب القسم:</h3>
             <div class="space-y-3">
                 <div class="flex justify-between items-center">
-                    <span class="text-gray-700" data-ar="الجزء الأول: المفاهيم والقواعد الأساسية والتعريفات" data-en="Part 1: Basic Concepts, Rules, and Definitions">الجزء الأول: المفاهيم والقواعد الأساسية والتعريفات</span>
-                    <span id="sec1-score" class="font-bold text-teal-600">0/4</span>
+                    <span class="text-gray-700" data-ar="الانحدار الأسّي" data-en="Exponential Regression">الانحدار الأسّي</span>
+                    <span id="sec1-score" class="font-bold text-indigo-600">0/4</span>
                 </div>
                 <div class="flex justify-between items-center">
-                    <span class="text-gray-700" data-ar="الجزء الثاني: العمليات الحسابية والحلول العددية الدقيقة" data-en="Part 2: Calculations and Exact Numerical Solutions">الجزء الثاني: العمليات الحسابية والحلول العددية الدقيقة</span>
-                    <span id="sec2-score" class="font-bold text-teal-600">0/4</span>
+                    <span class="text-gray-700" data-ar="الانحدار اللوغاريتمي" data-en="Logarithmic Regression">الانحدار اللوغاريتمي</span>
+                    <span id="sec2-score" class="font-bold text-indigo-600">0/4</span>
                 </div>
                 <div class="flex justify-between items-center">
-                    <span class="text-gray-700" data-ar="الجزء الثالث: المهارات المتقدمة والتطبيقات والمسائل" data-en="Part 3: Advanced Skills, Applications, and Problems">الجزء الثالث: المهارات المتقدمة والتطبيقات والمسائل</span>
-                    <span id="sec3-score" class="font-bold text-teal-600">0/4</span>
+                    <span class="text-gray-700" data-ar="الانحدار اللوجستي ودالة النمو اللوجستي" data-en="Logistic Regression & Growth Function">الانحدار اللوجستي ودالة النمو اللوجستي</span>
+                    <span id="sec3-score" class="font-bold text-indigo-600">0/4</span>
                 </div>
                 <div class="flex justify-between items-center">
-                    <span class="text-gray-700" data-ar="الجزء الرابع: النمذجة الرياضية والتمثيل البياني والمسائل العملية" data-en="Part 4: Mathematical Modeling, Graphing, and Practical Problems">الجزء الرابع: النمذجة الرياضية والتمثيل البياني والمسائل العملية</span>
-                    <span id="sec4-score" class="font-bold text-teal-600">0/4</span>
+                    <span class="text-gray-700" data-ar="اختيار الانحدار المناسب" data-en="Choosing a Regression">اختيار الانحدار المناسب</span>
+                    <span id="sec4-score" class="font-bold text-indigo-600">0/4</span>
                 </div>
                 <div class="flex justify-between items-center">
-                    <span class="text-gray-700" data-ar="الجزء الخامس: مهارات التفكير العليا والتحليل والربط المنطقي" data-en="Part 5: Higher-Order Thinking, Analysis, and Logical Connections">الجزء الخامس: مهارات التفكير العليا والتحليل والربط المنطقي</span>
-                    <span id="sec5-score" class="font-bold text-teal-600">0/4</span>
+                    <span class="text-gray-700" data-ar="تقريب البيانات خطيًا" data-en="Linearizing Data">تقريب البيانات خطيًا</span>
+                    <span id="sec5-score" class="font-bold text-indigo-600">0/4</span>
                 </div>
             </div>
         </div>
         <div class="text-center mb-6">
-            <button id="sendEmailBtn" onclick="sendResultsToEmail()" class="bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-lg px-8 py-3 rounded-xl font-bold shadow-xl transition transform hover:scale-105 cursor-pointer" data-ar="📧 إرسال النتائج للمعلم" data-en="📧 Send Results to Teacher">📧 إرسال النتائج للمعلم</button>
+            <button id="sendEmailBtn" onclick="sendResultsToEmail()" class="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-lg px-8 py-3 rounded-xl font-bold shadow-xl transition transform hover:scale-105 cursor-pointer" data-ar="📧 إرسال النتائج للمعلم" data-en="📧 Send Results to Teacher">📧 إرسال النتائج للمعلم</button>
             <p id="emailStatus" class="text-sm mt-2 text-center font-medium"></p>
         </div>
         <div class="flex gap-3 justify-center">
@@ -138,10 +138,11 @@
     </div>
 
     <footer class="max-w-4xl mx-auto mt-10 mb-8 text-center text-gray-500 text-sm no-print">
-        © <span data-ar="رياضيات الصف 11 متقدم | الدرس الخامس: الانحدار الخطي" data-en="Grade 11 Advanced Math | Lesson 5: Linear Regression">رياضيات الصف 11 متقدم | الدرس الخامس: الانحدار الخطي</span> | Platform 4U Education
+        © <span data-ar="Modeling with Nonlinear Regression" data-en="Modeling with Nonlinear Regression">Modeling with Nonlinear Regression</span> | Mr. Mohammed Hesham
     </footer>
 
 <script>
+// ==================== EmailJS Settings ====================
 const PUBLIC_KEY = "Rb3Lq8tXaFmc5YHUH";
 const SERVICE_ID = "service_w15m64i";
 const TEMPLATE_ID = "template_5b0u2tq";
@@ -150,629 +151,254 @@ const TARGET_EMAIL = "mohammedhesham872@gmail.com";
 emailjs.init(PUBLIC_KEY);
 
 const originalExamData = {
-    "sections": [
+    sections: [
         {
-            "id": "sec1",
-            "title": {
-                "ar": "🔹 الجزء الأول: المفاهيم والقواعد الأساسية والتعريفات",
-                "en": "🔹 Part 1: Basic Concepts, Rules, and Definitions"
-            },
-            "questions": [
+            id: 'sec1',
+            title: { ar: '🔹 الجزء الأول: الانحدار الأسّي', en: '🔹 Part 1: Exponential Regression' },
+            questions: [
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 1: بالاعتماد على قواعد وقوانين معادلة خط الانحدار والميل، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 1: Relying on the rules and laws of معادلة خط الانحدار والميل, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 1",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 1"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 1",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 1"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 1",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 1"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 1",
-                            "en": "Option D) Rejected negative value for logarithm 1"
-                        }
+                    q: { ar: 'في مثال سكان مدينة ميسا، مخطط التشتت للبيانات كان يتشابه بشدة مع التمثيل البياني لأي نوع من الدوال؟', en: 'In the Mesa population example, the scatter plot closely resembled the graph of which type of function?' },
+                    options: [
+                        { ar: 'دالة النمو الأسّي', en: 'An exponential growth function' },
+                        { ar: 'دالة خطية', en: 'A linear function' },
+                        { ar: 'دالة تربيعية', en: 'A quadratic function' },
+                        { ar: 'دالة لوجستية', en: 'A logistic function' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معادلة خط الانحدار والميل واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معادلة خط الانحدار والميل and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'لاحظ أن مخطط التشتت لبيانات سكان ميسا يتشابه بشدة مع التمثيل البياني لدالة النمو الأسّي، لذا استُخدم الانحدار الأسّي (ExpReg) لتمثيلها', en: 'The Mesa population scatter plot closely resembled an exponential growth graph, so exponential regression (ExpReg) was used to model it' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 2: بالاعتماد على قواعد وقوانين معادلة خط الانحدار والميل، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 2: Relying on the rules and laws of معادلة خط الانحدار والميل, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 2",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 2"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 2",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 2"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 2",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 2"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 2",
-                            "en": "Option D) Rejected negative value for logarithm 2"
-                        }
+                    q: { ar: 'في نتائج الانحدار الأسّي y = a·b^x لبيانات سكان ميسا، ماذا يمثل الثابت a؟', en: 'In the exponential regression y = a·b^x for the Mesa data, what does the constant a represent?' },
+                    options: [
+                        { ar: 'عدد سكان ميسا في عام 1900 (القيمة الأولية)', en: "Mesa's population in 1900 (the initial value)" },
+                        { ar: 'معدل النمو السنوي', en: 'The annual growth rate' },
+                        { ar: 'عدد السنوات منذ 1900', en: 'The number of years since 1900' },
+                        { ar: 'معامل الارتباط', en: 'The correlation coefficient' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معادلة خط الانحدار والميل واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معادلة خط الانحدار والميل and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'يمثل a عدد سكان ميسا في عام 1900 (القيمة الابتدائية)، بينما يمثل b معدل النمو السنوي الذي بلغ 6.7%', en: 'a represents Mesa\'s population in 1900 (the initial value), while b represents the 6.7% annual growth rate' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 3: بالاعتماد على قواعد وقوانين معادلة خط الانحدار والميل، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 3: Relying on the rules and laws of معادلة خط الانحدار والميل, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 3",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 3"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 3",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 3"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 3",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 3"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 3",
-                            "en": "Option D) Rejected negative value for logarithm 3"
-                        }
+                    q: { ar: 'في نموذج انحدار سكان ميسا كان معامل الارتباط r ≈ 0.9968، ماذا يشير هذا إلى؟', en: 'In the Mesa regression model, the correlation coefficient r ≈ 0.9968. What does this indicate?' },
+                    options: [
+                        { ar: 'أن النموذج قريب جداً ومتقارب مع البيانات', en: 'That the model is a very close fit to the data' },
+                        { ar: 'أن النموذج غير مناسب إطلاقاً للبيانات', en: 'That the model is completely unsuitable for the data' },
+                        { ar: 'أن عدد السكان سيتناقص مستقبلاً', en: 'That the population will decrease in the future' },
+                        { ar: 'أن البيانات خطية تماماً', en: 'That the data is perfectly linear' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معادلة خط الانحدار والميل واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معادلة خط الانحدار والميل and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'بما أن قيمة r قريبة من 1، فهذا يشير إلى تقارب جيد بين النموذج والبيانات، أي أن الانحدار الأسّي يمثل البيانات بشكل مناسب', en: 'Since r is close to 1, this indicates a good fit between the model and the data — the exponential regression represents the data well' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 4: بالاعتماد على قواعد وقوانين معادلة خط الانحدار والميل، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 4: Relying on the rules and laws of معادلة خط الانحدار والميل, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 4",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 4"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 4",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 4"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 4",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 4"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 4",
-                            "en": "Option D) Rejected negative value for logarithm 4"
-                        }
+                    q: { ar: 'باستخدام نموذج انحدار سكان ميسا، توقّع عدد السكان في عام 2020 (أي بعد 120 سنة من 1900) باستخدام ميزة CALC. ما القيمة التقريبية الناتجة؟', en: 'Using the Mesa regression model and the CALC feature, the population in 2020 (120 years after 1900) was predicted. What was the approximate result?' },
+                    options: [
+                        { ar: '1,675 ألف نسمة تقريباً (1.675 مليون)', en: 'Approximately 1,675 thousand (1.675 million)' },
+                        { ar: '396 ألف نسمة', en: '396 thousand' },
+                        { ar: '120 ألف نسمة', en: '120 thousand' },
+                        { ar: '6.7 مليون نسمة', en: '6.7 million' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معادلة خط الانحدار والميل واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معادلة خط الانحدار والميل and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'بتقييم الدالة P(120) باستخدام ميزة CALC، تبين أن عدد سكان ميسا سيبلغ تقريباً 1,675 ألفاً أو 1.675 مليون نسمة في عام 2020', en: "Evaluating P(120) using the CALC feature showed that Mesa's population would reach approximately 1,675 thousand or 1.675 million by 2020" }
                 }
             ]
         },
         {
-            "id": "sec2",
-            "title": {
-                "ar": "🔹 الجزء الثاني: العمليات الحسابية والحلول العددية الدقيقة",
-                "en": "🔹 Part 2: Calculations and Exact Numerical Solutions"
-            },
-            "questions": [
+            id: 'sec2',
+            title: { ar: '🔹 الجزء الثاني: الانحدار اللوغاريتمي', en: '🔹 Part 2: Logarithmic Regression' },
+            questions: [
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 5: بالاعتماد على قواعد وقوانين معامل الارتباط r وتفسيره وقوته، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 5: Relying on the rules and laws of معامل الارتباط r وتفسيره وقوته, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 5",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 5"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 5",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 5"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 5",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 5"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 5",
-                            "en": "Option D) Rejected negative value for logarithm 5"
-                        }
+                    q: { ar: 'البيانات التي تنمو أو تتضاءل بشكل سريع في البداية ثم تتباطأ مع الوقت تميل إلى أي نوع من النماذج؟', en: 'Data that grows or decays quickly at first and then slows down over time tends to fit which type of model?' },
+                    options: [
+                        { ar: 'نموذج لوغاريتمي', en: 'A logarithmic model' },
+                        { ar: 'نموذج أسّي', en: 'An exponential model' },
+                        { ar: 'نموذج خطي فقط', en: 'A linear model only' },
+                        { ar: 'نموذج لوجستي فقط', en: 'A logistic model only' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معامل الارتباط r وتفسيره وقوته واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معامل الارتباط r وتفسيره وقوته and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'بينما تشير بيانات النمو أو التضاؤل السريع إلى نموذج أسّي، تميل البيانات التي تنمو أو تتضاءل بشكل سريع في البداية ثم تتباطأ مع الوقت إلى نموذج لوغاريتمي يُحسب باستخدام انحدار لوغاريتمي طبيعي', en: 'While rapid growth/decay data suggests an exponential model, data that grows or decays quickly at first and then slows down tends to fit a logarithmic model computed using natural logarithmic regression' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 6: بالاعتماد على قواعد وقوانين معامل الارتباط r وتفسيره وقوته، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 6: Relying on the rules and laws of معامل الارتباط r وتفسيره وقوته, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 6",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 6"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 6",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 6"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 6",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 6"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 6",
-                            "en": "Option D) Rejected negative value for logarithm 6"
-                        }
+                    q: { ar: 'في مثال المواليد التوائم، كانت معادلة الانحدار اللوغاريتمي B(t) = 38,428.963 + 35,000.168 ln x بمعامل ارتباط r ≈ 0.9949. ماذا يعني ذلك؟', en: 'In the twin births example, the logarithmic regression B(t) = 38,428.963 + 35,000.168 ln x had r ≈ 0.9949. What does this mean?' },
+                    options: [
+                        { ar: 'أن النموذج اللوغاريتمي يلائم البيانات بشكل قريب جداً', en: 'That the logarithmic model closely fits the data' },
+                        { ar: 'أن هذا الانحدار غير قابل للاستخدام إطلاقاً', en: 'That this regression cannot be used at all' },
+                        { ar: 'أن عدد المواليد ثابت لا يتغير', en: 'That the number of births is constant and unchanging' },
+                        { ar: 'أن هناك خطأ في حساب اللوغاريتم', en: 'That there is an error in the logarithm calculation' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معامل الارتباط r وتفسيره وقوته واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معامل الارتباط r وتفسيره وقوته and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'يشير معامل الارتباط r ≈ 0.9949 القريب من 1 إلى مالءمة قريبة جداً بين معادلة الانحدار اللوغاريتمي والبيانات الفعلية للمواليد التوائم', en: 'The correlation coefficient r ≈ 0.9949, being close to 1, indicates a very close fit between the logarithmic regression equation and the actual twin births data' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 7: بالاعتماد على قواعد وقوانين معامل الارتباط r وتفسيره وقوته، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 7: Relying on the rules and laws of معامل الارتباط r وتفسيره وقوته, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 7",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 7"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 7",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 7"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 7",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 7"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 7",
-                            "en": "Option D) Rejected negative value for logarithm 7"
-                        }
+                    q: { ar: 'باستخدام نموذج انحدار المواليد التوائم ومعادلة الخط y = 150,000، عند حساب نقطة التقاطع، متى يتوقع أن يصل عدد المواليد التوائم إلى 150,000؟', en: "Using the twin births model and the line y = 150,000, when is the model's intersection point reached?" },
+                    options: [
+                        { ar: 'عندما t ≈ 24، أي في عام 2014 (1990+24)', en: 'When t ≈ 24, i.e. in the year 2014 (1990+24)' },
+                        { ar: 'عندما t ≈ 24، أي في عام 1990', en: 'When t ≈ 24, i.e. in the year 1990' },
+                        { ar: 'عندما t ≈ 150,000', en: 'When t ≈ 150,000' },
+                        { ar: 'لن يصل العدد إلى هذه القيمة أبداً', en: 'The number will never reach this value' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معامل الارتباط r وتفسيره وقوته واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معامل الارتباط r وتفسيره وقوته and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'عند إيجاد نقطة التقاطع بين تمثيل النموذج والخط y=150,000، وُجد أن t≈24، ويكون ذلك في عام 1990+24 أو 2014', en: 'Finding the intersection of the model graph and the line y=150,000 gave t≈24, corresponding to the year 1990+24, or 2014' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 8: بالاعتماد على قواعد وقوانين معامل الارتباط r وتفسيره وقوته، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 8: Relying on the rules and laws of معامل الارتباط r وتفسيره وقوته, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 8",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 8"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 8",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 8"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 8",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 8"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 8",
-                            "en": "Option D) Rejected negative value for logarithm 8"
-                        }
+                    q: { ar: 'في نتائج الانحدار اللوغاريتمي B(t) = a + b·ln x، ماذا يمثل الثابت a في سياق مثال المواليد التوائم؟', en: 'In the logarithmic regression result B(t) = a + b·ln x, what does the constant a represent in the twin births example?' },
+                    options: [
+                        { ar: 'عدد المواليد التوائم في عام 1990', en: 'The number of twin births in 1990' },
+                        { ar: 'معدل النمو السنوي للمواليد', en: 'The annual growth rate of births' },
+                        { ar: 'عدد السنوات منذ 1990', en: 'The number of years since 1990' },
+                        { ar: 'العدد النهائي المتوقع من المواليد', en: 'The final expected number of births' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معامل الارتباط r وتفسيره وقوته واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معامل الارتباط r وتفسيره وقوته and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'يتم تمثيل عدد المواليد التوائم في عام 1990 من خلال الثابت a في معادلة الانحدار اللوغاريتمي B(t)', en: 'The constant a in the logarithmic regression equation B(t) represents the number of twin births in 1990' }
                 }
             ]
         },
         {
-            "id": "sec3",
-            "title": {
-                "ar": "🔹 الجزء الثالث: المهارات المتقدمة والتطبيقات والمسائل",
-                "en": "🔹 Part 3: Advanced Skills, Applications, and Problems"
-            },
-            "questions": [
+            id: 'sec3',
+            title: { ar: '🔹 الجزء الثالث: الانحدار اللوجستي ودالة النمو اللوجستي', en: '🔹 Part 3: Logistic Regression & the Logistic Growth Function' },
+            questions: [
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 9: بالاعتماد على قواعد وقوانين معامل التحديد والنسبة المفسرة r²، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 9: Relying on the rules and laws of معامل التحديد والنسبة المفسرة r², find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 9",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 9"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 9",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 9"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 9",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 9"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 9",
-                            "en": "Option D) Rejected negative value for logarithm 9"
-                        }
+                    q: { ar: 'في دالة النمو اللوجستي f(t) = c / (1 + a·e^(-bt))، ماذا يمثل الثابت c؟', en: 'In the logistic growth function f(t) = c / (1 + a·e^(-bt)), what does the constant c represent?' },
+                    options: [
+                        { ar: 'حد النمو (سعة الحمل) الذي تقترب منه الدالة', en: 'The growth limit (carrying capacity) the function approaches' },
+                        { ar: 'القيمة الابتدائية عند t = 0 دائماً', en: 'The initial value at t = 0, always' },
+                        { ar: 'معدل النمو الأسّي', en: 'The exponential growth rate' },
+                        { ar: 'الزمن اللازم للوصول إلى الحد الأقصى', en: 'The time needed to reach the maximum' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معامل التحديد والنسبة المفسرة r² واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معامل التحديد والنسبة المفسرة r² and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'يمثل c حد النمو الذي يُطلق عليه أيضاً سعة الحمل للدالة، وترتبط دوال النمو اللوجستي بخطي تقارب أفقيين هما y=0 وy=c', en: 'c represents the growth limit, also called the carrying capacity; logistic growth functions have two horizontal asymptotes, y=0 and y=c' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 10: بالاعتماد على قواعد وقوانين معامل التحديد والنسبة المفسرة r²، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 10: Relying on the rules and laws of معامل التحديد والنسبة المفسرة r², find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 10",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 10"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 10",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 10"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 10",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 10"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 10",
-                            "en": "Option D) Rejected negative value for logarithm 10"
-                        }
+                    q: { ar: 'في مثال بكتيريا الخميرة، كان النموذج اللوجستي Y(t) = 661.565 / (1 + 131.178e^(-0.555t)). ما توقع حد نمو الخميرة في المزرعة؟', en: "In the yeast bacteria example, the logistic model was Y(t) = 661.565 / (1 + 131.178e^(-0.555t)). What is the predicted growth limit of the yeast?" },
+                    options: [
+                        { ar: 'سيقترب العدد من 662 لكنه لن يصل إلى هذا الرقم أبداً', en: 'The count will approach 662 but never actually reach that number' },
+                        { ar: 'سيصل العدد إلى 131 بالضبط', en: 'The count will reach exactly 131' },
+                        { ar: 'سيستمر العدد في التزايد إلى ما لا نهاية', en: 'The count will keep increasing indefinitely without limit' },
+                        { ar: 'سيصل العدد إلى صفر بعد فترة', en: 'The count will eventually reach zero' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معامل التحديد والنسبة المفسرة r² واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معامل التحديد والنسبة المفسرة r² and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'يمثل حد النمو في معادلة النموذج بسط الكسر وهو 661.565، لذا وفقاً لهذا النموذج سيقترب عدد بكتيريا الخميرة من 662 لكنه لن يصل إلى هذا الرقم أبداً', en: 'The growth limit is the numerator of the fraction, 661.565, so according to this model the yeast count will approach 662 but never actually reach it' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 11: بالاعتماد على قواعد وقوانين معامل التحديد والنسبة المفسرة r²، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 11: Relying on the rules and laws of معامل التحديد والنسبة المفسرة r², find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 11",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 11"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 11",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 11"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 11",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 11"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 11",
-                            "en": "Option D) Rejected negative value for logarithm 11"
-                        }
+                    q: { ar: 'ما خطا التقارب الأفقيان المرتبطان بدوال النمو اللوجستي؟', en: 'What are the two horizontal asymptotes associated with logistic growth functions?' },
+                    options: [
+                        { ar: 'y = 0 و y = c', en: 'y = 0 and y = c' },
+                        { ar: 'x = 0 و x = c', en: 'x = 0 and x = c' },
+                        { ar: 'y = a و y = b', en: 'y = a and y = b' },
+                        { ar: 'لا توجد خطوط تقارب لهذه الدوال', en: 'There are no asymptotes for these functions' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معامل التحديد والنسبة المفسرة r² واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معامل التحديد والنسبة المفسرة r² and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'ترتبط دوال النمو اللوجستي بخطي تقارب أفقيين هما y=0 وy=c، حيث c هو حد النمو (سعة الحمل)', en: 'Logistic growth functions have two horizontal asymptotes, y=0 and y=c, where c is the growth limit (carrying capacity)' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 12: بالاعتماد على قواعد وقوانين معامل التحديد والنسبة المفسرة r²، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 12: Relying on the rules and laws of معامل التحديد والنسبة المفسرة r², find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 12",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 12"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 12",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 12"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 12",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 12"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 12",
-                            "en": "Option D) Rejected negative value for logarithm 12"
-                        }
+                    q: { ar: 'لماذا لا يوجد معامل ارتباط مقابل للانحدارات اللوجستية كما هو الحال في الانحدارات الأسّية والخطية؟', en: 'Why do logistic regressions not have a corresponding correlation coefficient like exponential and linear regressions do?' },
+                    options: [
+                        { ar: 'بسبب طبيعة النماذج اللوجستية نفسها', en: 'Due to the very nature of logistic models' },
+                        { ar: 'لأن البيانات اللوجستية دائماً خطية بالكامل', en: 'Because logistic data is always entirely linear' },
+                        { ar: 'لأن الحاسبات لا تدعم النماذج اللوجستية', en: 'Because calculators do not support logistic models' },
+                        { ar: 'لأن اللوجستي لا يُستخدم في التمثيل البياني', en: 'Because logistic models are never graphed' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معامل التحديد والنسبة المفسرة r² واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معامل التحديد والنسبة المفسرة r² and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'ليس لدى الانحدارات اللوجستية معامل ارتباط مقابل بسبب طبيعة هذه النماذج نفسها', en: 'Logistic regressions do not have a corresponding correlation coefficient due to the very nature of these models' }
                 }
             ]
         },
         {
-            "id": "sec4",
-            "title": {
-                "ar": "🔹 الجزء الرابع: النمذجة الرياضية والتمثيل البياني والمسائل العملية",
-                "en": "🔹 Part 4: Mathematical Modeling, Graphing, and Practical Problems"
-            },
-            "questions": [
+            id: 'sec4',
+            title: { ar: '🔹 الجزء الرابع: اختيار الانحدار المناسب', en: '🔹 Part 4: Choosing a Regression' },
+            questions: [
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 13: بالاعتماد على قواعد وقوانين القيم المتطرفة والتنبؤ والاستقراء، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 13: Relying on the rules and laws of القيم المتطرفة والتنبؤ والاستقراء, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 13",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 13"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 13",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 13"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 13",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 13"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 13",
-                            "en": "Option D) Rejected negative value for logarithm 13"
-                        }
+                    q: { ar: 'في مثال الزلازل، من شكل مخطط التشتت تبيّن أن جميع نماذج الانحدار مناسبة لتمثيل البيانات باستثناء نموذج واحد. ما هو؟', en: 'In the earthquake example, the scatter plot showed all regression models could fit the data except one. Which one?' },
+                    options: [
+                        { ar: 'النموذج اللوغاريتمي', en: 'The logarithmic model' },
+                        { ar: 'النموذج الأسّي', en: 'The exponential model' },
+                        { ar: 'النموذج التربيعي', en: 'The quadratic model' },
+                        { ar: 'النموذج التكعيبي', en: 'The cubic model' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ القيم المتطرفة والتنبؤ والاستقراء واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of القيم المتطرفة والتنبؤ والاستقراء and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'من شكل مخطط التشتت، تبين أنه يمكن تمثيل بيانات الزلازل بواسطة أي نماذج انحدار مذكورة باستثناء النموذج اللوغاريتمي', en: 'From the shape of the scatter plot, the earthquake data could be represented by any of the listed regression models except the logarithmic model' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 14: بالاعتماد على قواعد وقوانين القيم المتطرفة والتنبؤ والاستقراء، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 14: Relying on the rules and laws of القيم المتطرفة والتنبؤ والاستقراء, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 14",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 14"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 14",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 14"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 14",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 14"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 14",
-                            "en": "Option D) Rejected negative value for logarithm 14"
-                        }
+                    q: { ar: 'في مثال الزلازل، كانت معادلة الانحدار ذات معامل الارتباط الأقرب إلى 1 هي المعادلة التربيعية من الدرجة الرابعة. باستخدام هذه المعادلة عند x=8.5، ما القيمة التقريبية الناتجة لـ y؟', en: 'In the earthquake example, the quartic regression had the correlation coefficient closest to 1. Evaluating it at x=8.5, what was the approximate value of y?' },
+                    options: [
+                        { ar: 'y ≈ 4,981', en: 'y ≈ 4,981' },
+                        { ar: 'y ≈ 8,400', en: 'y ≈ 8,400' },
+                        { ar: 'y ≈ 400', en: 'y ≈ 400' },
+                        { ar: 'y ≈ 293', en: 'y ≈ 293' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ القيم المتطرفة والتنبؤ والاستقراء واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of القيم المتطرفة والتنبؤ والاستقراء and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'باستخدام ميزة CALC لتقييم معادلة الانحدار التربيعي من الدرجة الرابعة عند x=8.5، كانت النتيجة y≈4,981، أي يمكن توقع الإحساس بالموجة على بعد 4,981 كيلومتر تقريباً بعد 8.5 دقائق', en: 'Using the CALC feature to evaluate the quartic regression at x=8.5 gave y≈4,981 — the seismic wave would be felt about 4,981 km away after 8.5 minutes' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 15: بالاعتماد على قواعد وقوانين القيم المتطرفة والتنبؤ والاستقراء، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 15: Relying on the rules and laws of القيم المتطرفة والتنبؤ والاستقراء, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 15",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 15"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 15",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 15"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 15",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 15"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 15",
-                            "en": "Option D) Rejected negative value for logarithm 15"
-                        }
+                    q: { ar: 'على مستوى مجال البيانات المعروض في أحد الأمثلة، كان النموذجان الأسّي واللوجستي هما الأكثر دقة في ملاءمة البيانات، بينما تمتع نموذج واحد بمعامل الارتباط الأقوى. ما هو؟', en: 'Over the displayed domain in one example, the exponential and logistic models fit the data most accurately, while one model had the strongest correlation coefficient. Which?' },
+                    options: [
+                        { ar: 'النموذج الأسّي', en: 'The exponential model' },
+                        { ar: 'النموذج اللوغاريتمي', en: 'The logarithmic model' },
+                        { ar: 'النموذج التربيعي', en: 'The quadratic model' },
+                        { ar: 'نموذج القوة', en: 'The power model' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ القيم المتطرفة والتنبؤ والاستقراء واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of القيم المتطرفة والتنبؤ والاستقراء and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'يبدو أن نموذجي الانحدار الأسّي واللوجستي هما الأكثر دقة في ملاءمة البيانات، بينما يتمتع النموذج الأسّي بمعامل الارتباط الأقوى', en: 'The exponential and logistic regression models appear most accurate at fitting the data, while the exponential model has the strongest correlation coefficient' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 16: بالاعتماد على قواعد وقوانين القيم المتطرفة والتنبؤ والاستقراء، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 16: Relying on the rules and laws of القيم المتطرفة والتنبؤ والاستقراء, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 16",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 16"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 16",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 16"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 16",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 16"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 16",
-                            "en": "Option D) Rejected negative value for logarithm 16"
-                        }
+                    q: { ar: 'ما الفكرة الصحيحة بخصوص استخدام معادلة انحدار للتنبؤ بعيد المدى مقابل السلوك قصير المدى؟', en: 'What is the correct idea regarding using a regression equation for long-term prediction versus short-term behavior?' },
+                    options: [
+                        { ar: 'بعض النماذج أفضل في توقع السلوك على المدى الطويل، بينما نماذج أخرى أكثر ملاءمة لاستيفاء البيانات على المدى القصير', en: 'Some models are better for predicting long-term behavior, while others are more suitable for interpolating data over the short term' },
+                        { ar: 'كل النماذج متساوية تماماً في دقة التنبؤ بعيد وقصير المدى', en: 'All models are exactly equal in accuracy for both long-term and short-term prediction' },
+                        { ar: 'أعلى معامل ارتباط يضمن دائماً أفضل تنبؤ بعيد المدى', en: 'The highest correlation coefficient always guarantees the best long-term prediction' },
+                        { ar: 'لا علاقة بين نوع النموذج ودقة التنبؤ', en: 'There is no relationship between the model type and prediction accuracy' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ القيم المتطرفة والتنبؤ والاستقراء واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of القيم المتطرفة والتنبؤ والاستقراء and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'تعتبر بعض النماذج أفضل من أخرى في توقع السلوك على المدى الطويل، بينما هناك نماذج أخرى أكثر ملاءمة لبحث السلوك أو استيفاء البيانات على المدى القصير', en: 'Some models are better than others at predicting long-term behavior, while other models are more suitable for studying behavior or interpolating data over the short term' }
                 }
             ]
         },
         {
-            "id": "sec5",
-            "title": {
-                "ar": "🔹 الجزء الخامس: مهارات التفكير العليا والتحليل والربط المنطقي",
-                "en": "🔹 Part 5: Higher-Order Thinking, Analysis, and Logical Connections"
-            },
-            "questions": [
+            id: 'sec5',
+            title: { ar: '🔹 الجزء الخامس: تقريب البيانات خطيًا', en: '🔹 Part 5: Linearizing Data' },
+            questions: [
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 17: بالاعتماد على قواعد وقوانين معادلة خط الانحدار والميل، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 17: Relying on the rules and laws of معادلة خط الانحدار والميل, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 17",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 17"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 17",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 17"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 17",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 17"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 17",
-                            "en": "Option D) Rejected negative value for logarithm 17"
-                        }
+                    q: { ar: 'لتقريب البيانات الممثلة بدالة أس ثابت y = ax^b خطيًا، أي تمثيل بياني يُستخدم؟', en: 'To linearize data represented by a power function y = ax^b, which plot is used?' },
+                    options: [
+                        { ar: 'التمثيل البياني لـ (ln x, ln y)', en: 'The (ln x, ln y) plot' },
+                        { ar: 'التمثيل البياني لـ (x, ln y)', en: 'The (x, ln y) plot' },
+                        { ar: 'التمثيل البياني لـ (ln x, y)', en: 'The (ln x, y) plot' },
+                        { ar: 'التمثيل البياني لـ (x, √y)', en: 'The (x, √y) plot' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معادلة خط الانحدار والميل واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معادلة خط الانحدار والميل and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'للتقريب الخطي لبيانات دالة أس ثابت y=ax^b، يُستخدم التمثيل البياني (ln x, ln y)', en: 'To linearize data from a power function y=ax^b, the (ln x, ln y) plot is used' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 18: بالاعتماد على قواعد وقوانين معادلة خط الانحدار والميل، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 18: Relying on the rules and laws of معادلة خط الانحدار والميل, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 18",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 18"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 18",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 18"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 18",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 18"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 18",
-                            "en": "Option D) Rejected negative value for logarithm 18"
-                        }
+                    q: { ar: 'لتقريب البيانات الممثلة بدالة أسّية y = ab^x خطيًا، أي تمثيل بياني يُستخدم؟', en: 'To linearize data represented by an exponential function y = ab^x, which plot is used?' },
+                    options: [
+                        { ar: 'التمثيل البياني لـ (x, ln y)', en: 'The (x, ln y) plot' },
+                        { ar: 'التمثيل البياني لـ (ln x, ln y)', en: 'The (ln x, ln y) plot' },
+                        { ar: 'التمثيل البياني لـ (ln x, y)', en: 'The (ln x, y) plot' },
+                        { ar: 'التمثيل البياني لـ (x, x²)', en: 'The (x, x²) plot' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معادلة خط الانحدار والميل واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معادلة خط الانحدار والميل and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'للتقريب الخطي لبيانات دالة أسّية y=ab^x، يُستخدم التمثيل البياني (x, ln y)', en: 'To linearize data from an exponential function y=ab^x, the (x, ln y) plot is used' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 19: بالاعتماد على قواعد وقوانين معادلة خط الانحدار والميل، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 19: Relying on the rules and laws of معادلة خط الانحدار والميل, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 19",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 19"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 19",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 19"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 19",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 19"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 19",
-                            "en": "Option D) Rejected negative value for logarithm 19"
-                        }
+                    q: { ar: 'في مثال مرتبات لاعبي كرة القدم، وصلت المعادلة الأسّية بعد التقريب الخطي إلى y = 0.06e^(0.096x). عند تقييمها لـ x=112 (عام 2012)، ما القيمة التقريبية الناتجة لمتوسط المرتب؟', en: "In the football salaries example, linearization led to the exponential equation y = 0.06e^(0.096x). Evaluated at x=112 (year 2012), what was the approximate resulting average salary?" },
+                    options: [
+                        { ar: 'حوالي 2,803 ألف AED (نحو 2.8 مليون AED)', en: 'About AED 2,803 thousand (about AED 2.8 million)' },
+                        { ar: 'حوالي 112 ألف AED', en: 'About AED 112 thousand' },
+                        { ar: 'حوالي 354 ألف AED', en: 'About AED 354 thousand' },
+                        { ar: 'حوالي 96 ألف AED', en: 'About AED 96 thousand' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معادلة خط الانحدار والميل واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معادلة خط الانحدار والميل and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'بتعويض x=112 في المعادلة y=0.06e^(0.096x) نحصل على قيمة تقارب 2,803 آلاف AED، أي حوالي 2.8 مليون AED', en: 'Substituting x=112 into y=0.06e^(0.096x) gives a value of about AED 2,803 thousand, roughly AED 2.8 million' }
                 },
                 {
-                    "q": {
-                        "ar": "سؤال تفاعلي 20: بالاعتماد على قواعد وقوانين معادلة خط الانحدار والميل، أوجد القيمة الدقيقة للمتغير أو المعامل المجهول؟",
-                        "en": "Interactive Question 20: Relying on the rules and laws of معادلة خط الانحدار والميل, find the exact value of the variable or unknown coefficient?"
-                    },
-                    "options": [
-                        {
-                            "ar": "الخيار أ) القيمة الصحيحة المحسوبة بدقة وفق الخصائص الأسية واللوغاريتمية 20",
-                            "en": "Option A) The correct value computed precisely according to exponential and logarithmic properties 20"
-                        },
-                        {
-                            "ar": "الخيار ب) قيمة ناتجة عن عكس الأساس أو إشارة الأس 20",
-                            "en": "Option B) Value resulting from reversing the base or exponent sign 20"
-                        },
-                        {
-                            "ar": "الخيار ج) حل دخيل مستبعد لا يقع في مجال دالة التعريف 20",
-                            "en": "Option C) Extraneous excluded solution that does not lie in the function's domain 20"
-                        },
-                        {
-                            "ar": "الخيار د) قيمة سالبة مرفوضة للوغاريتم 20",
-                            "en": "Option D) Rejected negative value for logarithm 20"
-                        }
+                    q: { ar: 'ما التحذير المهم عند استخدام معادلة البيانات بعد تقريبها خطيًا لحل مسألة تخص البيانات الأصلية؟', en: 'What is the important caution when using the linearized data equation to solve a problem about the original data?' },
+                    options: [
+                        { ar: 'يجب عدم الخلط بين المعادلة التي تمثل البيانات بعد تقريبها خطيًا والمعادلة التي تمثل البيانات الأصلية', en: 'One must not confuse the equation representing the linearized data with the equation representing the original data' },
+                        { ar: 'يمكن استخدام أي من المعادلتين دون أي فرق في النتيجة', en: 'Either equation can be used interchangeably with no difference in the result' },
+                        { ar: 'يجب استخدام المعادلة الخطية دائماً بدلاً من الأصلية', en: 'The linearized equation should always be used instead of the original' },
+                        { ar: 'لا حاجة لتحويل المعادلة الخطية مرة أخرى إلى صورتها الأصلية', en: 'There is no need to convert the linearized equation back to its original form' }
                     ],
-                    "correct": 0,
-                    "answer": {
-                        "ar": "الحل النموذجي يعتمد على تطبيق قوانين الأساس والأسس لـ معادلة خط الانحدار والميل واستعمال العلاقات العكسية المتبادلة بين الدالتين بشكل صحيح.",
-                        "en": "Model solution relies on applying the base and exponent rules of معادلة خط الانحدار والميل and correctly using the mutual inverse relationships between the two functions."
-                    }
+                    correct: 0,
+                    answer: { ar: 'يجب الانتباه لكي لا تُخلط المعادلة التي تمثل البيانات بعد تقريبها خطيًا مع المعادلة التي تمثل البيانات الأصلية؛ يجب استخدام المعادلة التي تمثل البيانات الأصلية لحل المسألة', en: 'Care must be taken not to confuse the equation representing the linearized data with the one representing the original data; the original-data equation must be used to solve the problem' }
                 }
             ]
         }
@@ -818,6 +444,8 @@ function prepareShuffledExam() {
             globalIdx++;
         });
     });
+    
+    console.log('✅ تم خلط الأسئلة والخيارات بنجاح');
 }
 
 function reshuffleExam() {
@@ -854,8 +482,8 @@ function setLanguage(lang) {
 function renderExam() {
     const container = document.getElementById('exam-content');
     const labels = {
-        ar: { option: ['أ', 'ب', 'ج', 'د'], answer: '✅ الإجابة الصحيحة:' },
-        en: { option: ['A', 'B', 'C', 'D'], answer: '✅ Correct Answer:' }
+        ar: { option: ['أ', 'ب', 'ج', 'د'], answer: '✅ الإجابة:' },
+        en: { option: ['A', 'B', 'C', 'D'], answer: '✅ Answer:' }
     };
     const lbl = labels[currentLang];
     const isRTL = currentLang === 'ar';
@@ -866,13 +494,13 @@ function renderExam() {
     examData.sections.forEach((section) => {
         html += `
         <section class="bg-white p-6 rounded-xl shadow-lg">
-            <h2 class="text-xl font-bold mb-4 text-teal-700">${section.title[currentLang]}</h2>
+            <h2 class="text-xl font-bold mb-4 text-indigo-700">${section.title[currentLang]}</h2>
             <ol class="space-y-4 text-sm">`;
             
         section.questions.forEach((q) => {
             const borderSide = isRTL ? 'border-r-4 pr-4' : 'border-l-4 pl-4';
             html += `
-                <li class="${borderSide} border-teal-500 py-2" id="q-${globalIdx}">
+                <li class="${borderSide} border-indigo-500 py-2" id="q-${globalIdx}">
                     <strong>${globalIdx + 1}.</strong> ${q.q[currentLang]}<br>`;
                     
             q.options.forEach((opt, oIdx) => {
@@ -937,17 +565,15 @@ function gradeExam() {
                 correctCount++;
                 li.classList.add('correct');
                 li.classList.remove('incorrect');
-            } else {
-                li.classList.add('incorrect');
-                li.classList.remove('correct');
-            }
-
-            if (isCorrect) {
+                
                 if (i < 4) sec1++;
                 else if (i < 8) sec2++;
                 else if (i < 12) sec3++;
                 else if (i < 16) sec4++;
                 else sec5++;
+            } else {
+                li.classList.add('incorrect');
+                li.classList.remove('correct');
             }
         }
     }
@@ -955,7 +581,7 @@ function gradeExam() {
     const score = (correctCount / 20) * 100;
     const successRate = Math.round(score);
     
-    document.getElementById('res-total').textContent = `${successRate} / 100`;
+    document.getElementById('res-total').textContent = `${Math.round(score)} / 100`;
     document.getElementById('res-name').textContent = document.getElementById('studentName').value || (currentLang === 'ar' ? 'طالب' : 'Student');
     document.getElementById('res-date').textContent = new Date().toLocaleDateString(currentLang === 'ar' ? 'ar-AE' : 'en-US');
     
@@ -1000,43 +626,31 @@ function sendResultsToEmail() {
     const badge = document.getElementById('success-badge').textContent;
 
     const sectionNames = {
-        ar: [
-            "الجزء الأول: المفاهيم والقواعد الأساسية والتعريفات",
-            "الجزء الثاني: العمليات الحسابية والحلول العددية الدقيقة",
-            "الجزء الثالث: المهارات المتقدمة والتطبيقات والمسائل",
-            "الجزء الرابع: النمذجة الرياضية والتمثيل البياني والمسائل العملية",
-            "الجزء الخامس: مهارات التفكير العليا والتحليل والربط المنطقي"
-        ],
-        en: [
-            "Part 1: Basic Concepts, Rules, and Definitions",
-            "Part 2: Calculations and Exact Numerical Solutions",
-            "Part 3: Advanced Skills, Applications, and Problems",
-            "Part 4: Mathematical Modeling, Graphing, and Practical Problems",
-            "Part 5: Higher-Order Thinking, Analysis, and Logical Connections"
-        ]
+        ar: ['الانحدار الأسّي', 'الانحدار اللوغاريتمي', 'الانحدار اللوجستي ودالة النمو اللوجستي', 'اختيار الانحدار المناسب', 'تقريب البيانات خطيًا'],
+        en: ['Exponential Regression', 'Logarithmic Regression', 'Logistic Regression & Growth Function', 'Choosing a Regression', 'Linearizing Data']
     };
     const currentSectionNames = sectionNames[currentLang];
 
     let answersHTML = `
-        <div style="font-family: 'Segoe UI', Tahoma, Arial, sans-serif; direction: ${currentLang === 'ar' ? 'rtl' : 'ltr'}; text-align: ${currentLang === 'ar' ? 'right' : 'left'};">
-            <div style="background: linear-gradient(135deg, #0d9488, #0891b2); color: white; padding: 20px; border-radius: 10px 10px 0 0; text-align: center;">
-                <h2 style="margin: 0; font-size: 22px;">⚡ ${currentLang === 'ar' ? 'نتيجة امتحان الرياضيات والتحليل التفاعلي' : 'Math Interactive Exam Result'}</h2>
-                <p style="margin: 5px 0 0 0; opacity: 0.9;">${currentLang === 'ar' ? 'رياضيات الصف الحادي عشر متقدم | الفصل الدراسي الأول' : 'Grade 11 Advanced Math | Term 1'}</p>
+        <div style="font-family: 'Segoe UI', Tahoma, Arial, sans-serif; direction: ${currentLang === 'ar' ? 'rtl' : 'ltr'};">
+            <div style="background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 20px; border-radius: 10px 10px 0 0; text-align: center;">
+                <h2 style="margin: 0; font-size: 22px;">🧮 ${currentLang === 'ar' ? 'نتيجة امتحان النمذجة باستخدام الانحدار اللاخطي' : 'Modeling with Nonlinear Regression Exam Result'}</h2>
+                <p style="margin: 5px 0 0 0; opacity: 0.9;">${currentLang === 'ar' ? 'Modeling with Nonlinear Regression' : 'Modeling with Nonlinear Regression'}</p>
                 <p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">🔀 ${currentLang === 'ar' ? 'تم خلط الأسئلة تلقائياً' : 'Questions were randomly shuffled'}</p>
             </div>
             
-            <div style="background: #f0fdfa; padding: 15px; border: 1px solid #99f6e4;">
+            <div style="background: #eef2ff; padding: 15px; border: 1px solid #c7d2fe;">
                 <table style="width: 100%; border-collapse: collapse;">
                     <tr>
-                        <td style="padding: 8px; font-weight: bold; color: #0f766e;">${currentLang === 'ar' ? '👤 الاسم:' : '👤 Name:'}</td>
+                        <td style="padding: 8px; font-weight: bold; color: #4338ca;">${currentLang === 'ar' ? '👤 الاسم:' : '👤 Name:'}</td>
                         <td style="padding: 8px;">${name}</td>
-                        <td style="padding: 8px; font-weight: bold; color: #0f766e;">${currentLang === 'ar' ? '🏫 الشعبة:' : '🏫 Class:'}</td>
+                        <td style="padding: 8px; font-weight: bold; color: #4338ca;">${currentLang === 'ar' ? '🏫 الشعبة:' : '🏫 Class:'}</td>
                         <td style="padding: 8px;">${studentClass}</td>
                     </tr>
                     <tr>
-                        <td style="padding: 8px; font-weight: bold; color: #0f766e;">${currentLang === 'ar' ? '📅 التاريخ:' : '📅 Date:'}</td>
+                        <td style="padding: 8px; font-weight: bold; color: #4338ca;">${currentLang === 'ar' ? '📅 التاريخ:' : '📅 Date:'}</td>
                         <td style="padding: 8px;">${date}</td>
-                        <td style="padding: 8px; font-weight: bold; color: #0f766e;">${currentLang === 'ar' ? '🏆 التقدير:' : '🏆 Grade:'}</td>
+                        <td style="padding: 8px; font-weight: bold; color: #4338ca;">${currentLang === 'ar' ? '🏆 التقدير:' : '🏆 Grade:'}</td>
                         <td style="padding: 8px;">${badge}</td>
                     </tr>
                 </table>
@@ -1044,7 +658,7 @@ function sendResultsToEmail() {
 
             <div style="background: white; padding: 20px; text-align: center; border-bottom: 2px solid #e5e7eb;">
                 <div style="display: inline-block; margin: 0 15px;">
-                    <div style="font-size: 32px; font-weight: bold; color: #0d9488;">${score}</div>
+                    <div style="font-size: 32px; font-weight: bold; color: #4f46e5;">${score}</div>
                     <div style="color: #6b7280; font-size: 13px;">${currentLang === 'ar' ? 'الدرجة الكلية' : 'Total Score'}</div>
                 </div>
                 <div style="display: inline-block; margin: 0 15px;">
@@ -1054,16 +668,16 @@ function sendResultsToEmail() {
             </div>
 
             <h3 style="background: #f3f4f6; padding: 12px; margin: 0; color: #1f2937; border-bottom: 2px solid #d1d5db;">
-                ${currentLang === 'ar' ? '📝 تفاصيل الإجابات' : '📝 Answer Details'}
+                📝 ${currentLang === 'ar' ? 'تفاصيل الإجابات' : 'Answer Details'}
             </h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
                 <thead>
-                    <tr style="background: #0d9488; color: white;">
-                        <th style="padding: 10px; border: 1px solid #0b7d73; width: 8%;">#</th>
-                        <th style="padding: 10px; border: 1px solid #0b7d73; width: 32%;">${currentLang === 'ar' ? 'القسم' : 'Section'}</th>
-                        <th style="padding: 10px; border: 1px solid #0b7d73; width: 15%;">${currentLang === 'ar' ? 'الإجابة' : 'Answer'}</th>
-                        <th style="padding: 10px; border: 1px solid #0b7d73; width: 15%;">${currentLang === 'ar' ? 'الصحيحة' : 'Correct'}</th>
-                        <th style="padding: 10px; border: 1px solid #0b7d73; width: 15%;">${currentLang === 'ar' ? 'النتيجة' : 'Status'}</th>
+                    <tr style="background: #4f46e5; color: white;">
+                        <th style="padding: 10px; border: 1px solid #4338ca; width: 8%;">#</th>
+                        <th style="padding: 10px; border: 1px solid #4338ca; width: 32%;">${currentLang === 'ar' ? 'القسم' : 'Section'}</th>
+                        <th style="padding: 10px; border: 1px solid #4338ca; width: 15%;">${currentLang === 'ar' ? 'الإجابة' : 'Answer'}</th>
+                        <th style="padding: 10px; border: 1px solid #4338ca; width: 15%;">${currentLang === 'ar' ? 'الصحيحة' : 'Correct'}</th>
+                        <th style="padding: 10px; border: 1px solid #4338ca; width: 15%;">${currentLang === 'ar' ? 'النتيجة' : 'Status'}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1106,7 +720,7 @@ function sendResultsToEmail() {
                 </tbody>
             </table>
 
-            <h3 style="background: #f3f4f6; padding: 12px; margin: 0; color: #1f2937; border-bottom: 2px solid #d1d5db; border-top: 3px solid #0d9488;">
+            <h3 style="background: #f3f4f6; padding: 12px; margin: 0; color: #1f2937; border-bottom: 2px solid #d1d5db; border-top: 3px solid #4f46e5;">
                 📊 ${currentLang === 'ar' ? 'تفصيل الأداء' : 'Performance Breakdown'}
             </h3>
             <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
@@ -1128,7 +742,7 @@ function sendResultsToEmail() {
         answersHTML += `
             <tr style="background: ${rowBg};">
                 <td style="padding: 10px; border: 1px solid #e5e7eb; font-weight: 600;">${currentSectionNames[i]}</td>
-                <td style="padding: 10px; border: 1px solid #e5e7eb; text-align: center; font-weight: bold; color: #0d9488;">
+                <td style="padding: 10px; border: 1px solid #e5e7eb; text-align: center; font-weight: bold; color: #4f46e5;">
                     ${sectionScores[i]} / ${sectionTotals[i]}
                 </td>
                 <td style="padding: 10px; border: 1px solid #e5e7eb;">
